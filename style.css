@@ -5,6 +5,12 @@ body {
     margin: 0;
     padding: 0;
 }
+body {
+    background-image: url('gradient-background.jpg'); /* Ensure the filename matches */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
 
 .container {
     width: 80%;
