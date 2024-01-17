@@ -45,7 +45,6 @@ nav ul li a {
     color: #333;
 }
 
-/* Hero Section */
 .hero {
     background: url('path_to_your_hero_image.jpg') no-repeat center center/cover;
     height: 100vh;
