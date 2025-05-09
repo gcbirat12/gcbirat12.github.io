@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birat GC</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23f7f3ed'/%3E%3Cpath d='M32 10L24 34H40L32 10Z M24 34L18 54H46L40 34H24Z' fill='none' stroke='%23333' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E">
+    <style>
+        :root {
+            --ink-color: #333;
+            --paper-color: #f7f3ed;
+            --accent-color: #4a6da7;
+            --spacing-unit: 2rem;
+            --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Already updated in previous edit */
+        
+        .container {
+            max-width: 1200px; /* Increased from 900px to 1200px for wider layout */
+            margin: 0 auto;
+            padding: var(--spacing-unit);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: var(--spacing-unit) 0;
+        }
+        
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--ink-color);
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+        
+        .torii-gate {
+            width: 80px;
+            height: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: calc(var(--spacing-unit) * 1.5);
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--ink-color);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid transparent;
+            transition: border-bottom 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            border-bottom: 1px solid var(--ink-color);
+        }
+        
+        header {
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+            justify-content: center;
+        }
+        
+        .logo {
+            margin-bottom: calc(var(--spacing-unit) * 2);
+        }
+        
+        .logo-symbol {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--ink-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: var(--spacing-unit);
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+            max-width: 700px; /* Increased from 560px to accommodate wider container */
+        }
+        
+        .intro {
+            font-size: 1rem;
+            margin-bottom: var(--spacing-unit);
+            max-width: 800px; /* Increased from 600px to accommodate wider container */
+            line-height: 1.7;
+        }
+        
+        section {
+            margin: calc(var(--spacing-unit) * 4) 0;
+        }
+        
+        h2 {
+            font-size: 1rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: var(--spacing-unit);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h2::after {
+            content: "";
+            position: absolute;
+            height: 1px;
+            width: 40px;
+            background-color: var(--ink-color);
+            bottom: -5px;
+            left: 0;
+        }
+        
+        .project {
+            margin-bottom: calc(var(--spacing-unit) * 3);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-unit);
+        }
+        
+        .project-image {
+            height: 200px;
+            width: 100%;
+            background-color: #e6e1da;
+            overflow: hidden;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s ease;
+        }
+        
+        .project:hover .project-image img {
+            transform: scale(1.03);
+        }
+        
+        .project-title {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-desc {
+            max-width: 800px; /* Increased from 600px to accommodate wider container */
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: calc(var(--spacing-unit) * 3); /* Increased from 2 to 3 for better spacing in wider layout */
+        }
+        
+        .skills-text p {
+            margin-bottom: var(--spacing-unit);
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+        
+        .skills-list {
+            list-style: none;
+        }
+        
+        .skills-list li {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .experience {
+            margin-bottom: calc(var(--spacing-unit) * 3);
+        }
+        
+        .experience-title {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 0.2rem;
+        }
+        
+        .experience-company {
+            font-size: 1rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .experience-date {
+            font-size: 0.8rem;
+            color: rgba(0,0,0,0.6);
+            margin-bottom: 1rem;
+        }
+        
+        .experience-desc p {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 0.5rem;
+        }
+        
+        p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        
+        footer {
+            margin-top: calc(var(--spacing-unit) * 6);
+            padding: calc(var(--spacing-unit) * 2) 0;
+            border-top: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        
+        .contact-info {
+            font-size: 0.9rem;
+        }
+        
+        .contact-info a {
+            color: var(--ink-color);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-bottom 0.3s ease;
+        }
+        
+        .contact-info a:hover {
+            border-bottom: 1px solid var(--ink-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: var(--spacing-unit);
+        }
+        
+        .social-links a {
+            color: var(--ink-color);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .divider {
+            height: 1px;
+            width: 100%;
+            background-color: rgba(0,0,0,0.1);
+            margin: calc(var(--spacing-unit) * 3) 0;
+            position: relative;
+        }
+        
+        .divider::after {
+            content: "";
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: var(--spacing-unit);
+            }
+            
+            header {
+                height: auto;
+                padding: calc(var(--spacing-unit) * 3) 0;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+                max-width: 100%;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: var(--spacing-unit);
+            }
+        }
+        
+        .resume-link {
+            position: relative;
+            color: var(--accent-color) !important;
+        }
+        
+        .resume-link::after {
+            background: var(--accent-color) !important;
+        }
+        
+        main {
+            animation: fadeIn 1.5s ease;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            line-height: 1.6;
+            color: var(--ink-color);
+            background-color: var(--paper-color);
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="logo-container">
+                <!-- Move SVG above the name -->
+                <svg class="torii-gate" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 120">
+                  <!-- Top curved beam -->
+                  <path d="M20,30 C20,25 40,15 100,15 C160,15 180,25 180,30 L180,20 C180,15 160,5 100,5 C40,5 20,15 20,20 Z" fill="#e48e8e"/>
+                  <!-- Main horizontal beam -->
+                  <rect x="15" y="30" width="170" height="10" fill="#e48e8e"/>
+                  <!-- Middle horizontal beam -->
+                  <rect x="30" y="50" width="140" height="8" fill="#e48e8e"/>
+                  <!-- Left pillar -->
+                  <rect x="40" y="30" width="20" height="85" fill="#e48e8e"/>
+                  <rect x="40" y="70" width="20" height="45" fill="#6d4c41"/>
+                  <!-- Right pillar -->
+                  <rect x="140" y="30" width="20" height="85" fill="#e48e8e"/>
+                  <rect x="140" y="70" width="20" height="45" fill="#6d4c41"/>
+                </svg>
+                
+                <a href="#" class="logo">Birat GC</a>
+            </div>
+            <div class="nav-links">
+                <a href="#experience">Experience</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">What I Do</a>
+                <a href="https://drive.google.com/file/d/16FVrh7yZe5UOz-iwadNXxh38Gjpzg8Pm/view?usp=sharing " class="resume-link">Resume</a>
+            </div>
+        </nav>
+        
+        
+        <header>
+            <p class="intro">Hi, I'm Birat, a data scientist and analyst with expertise in transforming complex information into actionable insights. I believe that the most impactful solutions emerge at the intersection of analytical rigor and business understanding.</p>
+            
+            <p class="intro">I'm currently working at Merrick Academy, where I develop predictive models that help identify at-risk students and create data-driven intervention strategies to improve educational outcomes. I've built ETL pipelines using Snowflake and created interactive dashboards that significantly reduce reporting time. Previously, I taught data science at Success Academy, mentoring students in predictive analytics and time series forecasting.</p>
+                        
+            <p class="intro">I'm pursuing my Master's in Data Science at University of Colorado Boulder after completing my Economics degree at Virginia Tech. During my graduate studies, I've focused on applying machine learning techniques to real-world problems, working on predictive modeling projects involving natural language processing and time series analysis for various business applications.</p>
+            
+        </header>
+        
+        <main>
+            <!-- Banner image removed and replaced with subtle background pattern -->
+            
+            <section id="experience">
+                <h2>Experience</h2>
+                
+                <div class="experience">
+                    <h3 class="experience-title">Data Analyst</h3>
+                    <p class="experience-company">Merrick Academy</p>
+                    <p class="experience-date">Queens, NY | September 2022–Present</p>
+                    <div class="experience-desc">
+                        <p>• Developed predictive models using XGBoost to identify at-risk students</p>
+                        <p>• Implemented time series forecasting to improve student attendance</p>
+                        <p>• Created data dashboards that significantly reduced achievement gaps</p>
+                        <p>• Built ETL pipelines in Snowflake, optimizing reporting workflows</p>
+                    </div>
+                </div>
+                
+                <div class="experience">
+                    <h3 class="experience-title">Data Science Associate Teacher</h3>
+                    <p class="experience-company">Success Academy</p>
+                    <p class="experience-date">New York, NY | July 2022–September 2022</p>
+                    <div class="experience-desc">
+                        <p>• Mentored students in predictive analytics and time series forecasting</p>
+                        <p>• Taught EdX courses in Python and Java with focus on practical applications</p>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="divider"></div>
+            
+            <section id="projects">
+                <h2>Projects</h2>
+                <div class="project">
+                    <h3 class="project-title">AI Ant Colony Simulator</h3>
+                    <p class="project-desc">
+                        A machine learning-powered ant colony simulator where each ant evolves strategies for food gathering, nest building, and pheromone communication through neural networks and evolutionary algorithms.
+                    </p>
+                    <p>
+                        <a href="https://github.com/gcbirat12/ant-colony-simulator" target="_blank">View on GitHub</a>
+                    </p>
+                </div>
+
+                <div class="project">
+                    <h3 class="project-title">Eat If: Web Application for Dietary Recommendations</h3>
+                    <p class="project-desc">Flask-based web app using machine learning to provide dietary recommendations. Built with XGBoost and deployed on Heroku.</p>
+                    <p><a href="https://eatif.co" target="_blank">Visit eatif.co</a></p>
+                </div>
+            </section>
+            
+            <div class="divider"></div>
+            
+            <section id="education">
+                <h2>Education</h2>
+                
+                <div class="experience">
+                    <h3 class="experience-title">Master of Science in Data Science</h3>
+                    <p class="experience-company">University of Colorado Boulder</p>
+                    <p class="experience-date">Boulder, CO | August 2023–May 2025</p>
+                </div>
+                
+                <div class="experience">
+                    <h3 class="experience-title">Bachelor of Arts in Economics</h3>
+                    <p class="experience-company">Virginia Tech</p>
+                    <p class="experience-date">Blacksburg, VA | May 2022</p>
+                </div>
+            </section>
+            
+            <div class="divider"></div>
+            
+            <section id="skills">
+                <h2>What I Do & Tech Stack</h2>
+                
+                <div class="skills-grid">
+                    <div class="skills-text">
+                        <h3 class="section-title">What I Do</h3>
+                        <ul class="skills-list">
+                            <li>Statistical Analysis & Hypothesis Testing</li>
+                            <li>Machine Learning Model Development</li>
+                            <li>Feature Engineering & Selection</li>
+                            <li>Data Preprocessing & Cleaning</li>
+                            <li>A/B Testing & Experimentation</li>
+                            <li>Data Visualization & Storytelling</li>
+                            <li>Model Deployment & Monitoring</li>
+                            <li>Product Analytics & KPI Tracking</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="skills-text">
+                        <h3 class="section-title">Tech Stack</h3>
+                        <ul class="skills-list">
+                            <li>Python (NumPy, Pandas, SciPy)</li>
+                            <li>RStudio</li>
+                            <li>SQL & Database Management (Snowflake)</li>
+                            <li>Machine Learning Libraries (scikit-learn, XGBoost, ktrain)</li>
+                            <li>Deep Learning (TensorFlow, Keras)</li>
+                            <li>Time Series Tools (ARIMA, SARIMA)</li>
+                            <li>Data Visualization (Matplotlib, Seaborn, Plotly)</li>
+                            <li>Cloud Platforms (AWS)</li>
+                            <li>Big Data Tools (Spark, Hadoop)</li>
+                            <li>Version Control (Git, GitHub)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer id="contact">
+            <div class="footer-content">
+                <div class="contact-info">
+                    <p>Let's chat!</p>
+                    <p><a href="mailto:gcbirat12@gmail.com">gcbirat12@gmail.com</a> | +1(540) 319-7048</p>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://github.com/gcbirat12" target="_blank" aria-label="GitHub">GitHub</a>
+                    <a href="https://www.linkedin.com/in/birat-gc-836036128/" target="_blank" aria-label="LinkedIn">LinkedIn</a>
+                </div>
+            </div>
+            
+            <p class="copyright">© 2025 Birat GC</p>
+        </footer>
+    </div>
+</body>
+</html>
